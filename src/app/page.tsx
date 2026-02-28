@@ -1,6 +1,6 @@
 import CTAMain from "@/components/CTASection/CtaMain";
+import FeaturedServices from "@/components/FeaturedServices/FeaturedServices";
 import HeroMain from "@/components/HeroSection/HeroMain";
-
 import StatsMain from "@/components/Stats/StatsMain";
 
 export default function Home() {
@@ -8,6 +8,7 @@ export default function Home() {
     <>
       <HeroMain />
       <StatsMain/>
+      <FeaturedServices/>
       <CTAMain/>
     </>
   )

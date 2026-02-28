@@ -15,9 +15,8 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
   const links = [
     { link: "Home",        section: "home",     href: "/",          isRoute: true  },
     { link: "Services",    section: "services", href: "/services",  isRoute: true  },
-    { link: "About",       section: "about",    href: "/about",     isRoute: true  },
-    { link: "Our Journey", section: "journey",  href: "/#journey",  isRoute: false },
-    { link: "Contact",     section: "contact",  href: "/contact",   isRoute: true  },
+    { link: "About Us",       section: "about",    href: "/about",     isRoute: true  },
+    { link: "Contact Us",     section: "contact",  href: "/contact",   isRoute: true  },
   ];
 
   const handleMobileClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof links[0]) => {

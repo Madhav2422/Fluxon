@@ -2,44 +2,43 @@ import ServicesPageCards from "./ServicesPageCards";
 
 const ServicesPageMain: React.FC = () => {
   return (
-    <section
-      id="services"
-      className="w-full relative overflow-hidden py-20 px-8 md:px-16"
-      style={{
-        background: "linear-gradient(135deg, #e8f4fd 0%, #e0f7f3 50%, #f0fffc 100%)",
-      }}
-    >
-      {/* Dot grid — contained inside relative section */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle, #1a9e8322 1px, transparent 1px)`,
-          backgroundSize: "30px 30px",
-        }}
-      />
+    <section id="services" className="w-full bg-white">
 
-      {/* All content above the dot grid */}
-      <div className="relative z-10 max-w-[1280px] mx-auto">
-        {/* Section heading */}
+      {/* Header — gradient bg, same as hero/contact/about */}
+      <div
+        className="w-full relative overflow-hidden pt-16 pb-14 px-8 text-center border-b border-[#1a9e83]/15"
+        style={{
+          background: "linear-gradient(135deg, #e8f4fd 0%, #e0f7f3 50%, #f0fffc 100%)",
+          animation: "fadeInDown 0.6s ease-out both",
+        }}
+      >
+        {/* Dot grid */}
         <div
-          className="text-center mb-12"
-          style={{ animation: "fadeInDown 0.6s ease-out both" }}
-        >
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle, #1a9e8328 1px, transparent 1px)`,
+            backgroundSize: "30px 30px",
+          }}
+        />
+        <div className="absolute top-0 left-[-100px] w-80 h-80 rounded-full bg-[#1e5fa8]/08 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-[-80px] w-[420px] h-[420px] rounded-full bg-[#1a9e83]/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10">
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#1a9e83] bg-white/70 border border-[#1a9e83]/20 px-4 py-1.5 rounded-full mb-4 font-[family-name:var(--font-dm-sans)]">
             What We Offer
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0d2340] font-[family-name:var(--font-plus-jakarta)] mb-4">
+          <h1 className="text-5xl font-bold font-[family-name:var(--font-plus-jakarta)] text-[#0d2340] mb-4">
             Our <span className="text-[#1a9e83]">Services</span>
-          </h2>
+          </h1>
           <p className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-base max-w-xl mx-auto leading-relaxed">
-            Comprehensive IT services designed to help your business thrive in
-            the digital age.
+            End-to-end IT solutions tailored to your business needs and growth ambitions.
           </p>
         </div>
-
-        {/* Cards */}
-        <ServicesPageCards />
       </div>
+
+      {/* Cards — white bg */}
+      <ServicesPageCards />
+
     </section>
   );
 };

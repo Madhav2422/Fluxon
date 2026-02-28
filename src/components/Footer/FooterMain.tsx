@@ -5,8 +5,8 @@ import FooterRight from "./FooterRight";
 const FooterMain: React.FC = () => {
   return (
     <footer
-      className="w-full"
-      style={{ background: "#0b2d27" }}
+      className="w-full border-t-2 border-[#1a9e83]/30"
+      style={{ background: "#125740" }}
     >
       {/* Main grid */}
       <div className="max-w-[1280px] mx-auto px-8 md:px-16 py-16">
