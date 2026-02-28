@@ -5,7 +5,7 @@ import HowWeWork from "./HowweWork";
 
 const AboutMain: React.FC = () => {
   return (
-    <section id="about" className="w-full bg-white">
+    <section id="about" className="w-full bg-white -mt-[90px] pt-[90px]">
 
       {/* Header */}
       <div

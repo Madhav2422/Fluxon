@@ -3,7 +3,7 @@ import ContactRight from "./ContactMeRight";
 
 const ContactMain: React.FC = () => {
   return (
-    <section id="contact" className="w-full bg-white">
+    <section id="contact" className="w-full bg-white -mt-[90px] pt-[90px] "  >
 
    
       <div

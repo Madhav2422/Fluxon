@@ -2,11 +2,11 @@ import ServicesPageCards from "./ServicesPageCards";
 
 const ServicesPageMain: React.FC = () => {
   return (
-    <section id="services" className="w-full bg-white">
+    <section id="services" className="w-full bg-white -mt-[90px]">
 
-      {/* Header — gradient bg, same as hero/contact/about */}
+      {/* Header — pulls up to touch navbar, pt accounts for navbar height */}
       <div
-        className="w-full relative overflow-hidden pt-16 pb-14 px-8 text-center border-b border-[#1a9e83]/15"
+        className="w-full relative overflow-hidden pt-[calc(90px+4rem)] pb-14 px-8 text-center border-b border-[#1a9e83]/15"
         style={{
           background: "linear-gradient(135deg, #e8f4fd 0%, #e0f7f3 50%, #f0fffc 100%)",
           animation: "fadeInDown 0.6s ease-out both",
