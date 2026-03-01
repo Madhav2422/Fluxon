@@ -1,8 +1,8 @@
 import {
   FiCode,
-  FiSmartphone,
+  FiCpu,
   FiCloud,
-  FiShield,
+  FiSettings,
   FiUsers,
   FiZap,
 } from "react-icons/fi";
@@ -16,11 +16,11 @@ const services = [
     tags: ["Custom Web Apps", "E-Commerce", "CMS Solutions", "API Development"],
   },
   {
-    icon: <FiSmartphone size={22} className="text-[#1a9e83]" />,
-    title: "Mobile App Development",
+    icon: <FiCpu size={22} className="text-[#1a9e83]" />,
+    title: "AI Solutions",
     description:
-      "Native and cross-platform apps for iOS and Android. From concept to deployment on app stores.",
-    tags: ["React Native", "Flutter", "iOS & Android", "App Maintenance"],
+      "Intelligent AI-powered tools and integrations tailored to automate workflows, enhance decisions, and drive smarter business outcomes.",
+    tags: ["Machine Learning", "AI Chatbots", "Predictive Analytics", "LLM Integration"],
   },
   {
     icon: <FiCloud size={22} className="text-[#1a9e83]" />,
@@ -30,11 +30,11 @@ const services = [
     tags: ["Cloud Migration", "Infrastructure Setup", "Cost Optimization", "24/7 Monitoring"],
   },
   {
-    icon: <FiShield size={22} className="text-[#1a9e83]" />,
-    title: "Cybersecurity",
+    icon: <FiSettings size={22} className="text-[#1a9e83]" />,
+    title: "Automation",
     description:
-      "Protect your digital assets with comprehensive security assessments, implementation, and monitoring.",
-    tags: ["Security Audits", "Penetration Testing", "Compliance", "Incident Response"],
+      "End-to-end process automation to eliminate repetitive tasks, reduce errors, and boost your team's operational efficiency.",
+    tags: ["Workflow Automation", "RPA", "API Integration", "Process Optimization"],
   },
   {
     icon: <FiUsers size={22} className="text-[#1a9e83]" />,

@@ -5,11 +5,10 @@ import HowWeWork from "./HowweWork";
 
 const AboutMain: React.FC = () => {
   return (
-    <section id="about" className="w-full bg-white -mt-[90px] pt-[90px]">
+    <section id="about" className="w-full bg-white -mt-[90px]">
 
-      {/* Header */}
       <div
-        className="w-full relative overflow-hidden pt-16 pb-14 px-8 text-center border-b border-[#1a9e83]/15"
+        className="w-full relative overflow-hidden pt-[calc(90px+4rem)] pb-14 px-8 text-center border-b border-[#1a9e83]/15"
         style={{
           background: "linear-gradient(135deg, #e8f4fd 0%, #e0f7f3 50%, #f0fffc 100%)",
           animation: "fadeInDown 0.6s ease-out both",
@@ -38,7 +37,6 @@ const AboutMain: React.FC = () => {
         </div>
       </div>
 
-      {/* Our Story — left text, right image */}
       <div className="max-w-[1280px] mx-auto px-8 md:px-16 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           <AboutLeft />
@@ -46,11 +44,8 @@ const AboutMain: React.FC = () => {
         </div>
       </div>
 
-      {/* Core Values */}
       <CoreValues />
-
-      {/*How we work */}
-      <HowWeWork/>
+      <HowWeWork />
 
     </section>
   );

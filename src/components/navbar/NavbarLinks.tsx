@@ -13,10 +13,10 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
   const pathname = usePathname();
 
   const links = [
-    { link: "Home",        section: "home",     href: "/",          isRoute: true  },
-    { link: "Services",    section: "services", href: "/services",  isRoute: true  },
-    { link: "About Us",       section: "about",    href: "/about",     isRoute: true  },
-    { link: "Contact Us",     section: "contact",  href: "/contact",   isRoute: true  },
+    { link: "Home",       section: "home",     href: "/",         isRoute: true },
+    { link: "Services",   section: "services", href: "/services", isRoute: true },
+    { link: "About Us",   section: "about",    href: "/about",    isRoute: true },
+    { link: "Contact Us", section: "contact",  href: "/contact",  isRoute: true },
   ];
 
   const handleMobileClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof links[0]) => {
@@ -62,18 +62,14 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
               <Link
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-300 pb-1 font-[family-name:var(--font-dm-sans)] ${
-                  isActive
-                    ? "text-[#1a9e83]"
-                    : "text-[#3d3d3d] hover:text-[#1a9e83]"
+                  isActive ? "text-[#1a9e83]" : "text-[#3d3d3d] hover:text-[#1a9e83]"
                 }`}
               >
                 {link.link}
               </Link>
               <div
                 className={`h-[2px] rounded-full transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#1a9e83] w-full"
-                    : "bg-[#1a9e83] w-0 group-hover:w-full"
+                  isActive ? "bg-[#1a9e83] w-full" : "bg-[#1a9e83] w-0 group-hover:w-full"
                 }`}
               />
             </li>
@@ -83,7 +79,7 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <ul className="lg:hidden flex flex-col gap-1 py-4 px-4 bg-white w-full border-t border-gray-100">
+        <ul className="lg:hidden flex flex-col gap-1 pt-3 pb-5 px-4 bg-white w-full border-t border-gray-100 mt-1">
           {links.map((link, index) => {
             const isActive = isLinkActive(link);
             return (

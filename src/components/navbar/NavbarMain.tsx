@@ -58,7 +58,7 @@ const NavbarMain: React.FC = () => {
           }`}
         >
           <NavbarLinks menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          <div className="px-4 pb-4 pt-2 bg-white border-t border-gray-100">
+          <div className="px-4 pb-4 pt-4 bg-white border-t border-gray-100 mt-2">
             <NavbarBtn />
           </div>
         </div>
