@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 
 const ContactRight: React.FC = () => {
   const [form, setForm] = useState({
@@ -10,15 +11,58 @@ const ContactRight: React.FC = () => {
     message: "",
   });
 
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [visible, setVisible] = useState(false);
+
+  // Auto-disappear after 4 seconds with fade-out at 3.5s
+  useEffect(() => {
+    if (status === "success" || status === "error") {
+      setVisible(true);
+      const fadeOut = setTimeout(() => setVisible(false), 3500);
+      const reset   = setTimeout(() => setStatus("idle"), 4000);
+      return () => {
+        clearTimeout(fadeOut);
+        clearTimeout(reset);
+      };
+    }
+  }, [status]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(form);
+
+    if (!form.fullName || !form.email || !form.subject) {
+      setStatus("error");
+      return;
+    }
+
+    setStatus("sending");
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          fullName: form.fullName,
+          email:    form.email,
+          phone:    form.phone || "Not provided",
+          subject:  form.subject,
+          message:  form.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      setStatus("success");
+      setForm({ fullName: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+    }
   };
 
   const inputClass =
@@ -110,16 +154,54 @@ const ContactRight: React.FC = () => {
           />
         </div>
 
+        {/* Success / Error — fades out automatically */}
+        {status === "success" && (
+          <div
+            className={`flex items-center gap-2 bg-[#f0fffc] border border-[#1a9e83]/30 text-[#1a9e83] text-sm px-4 py-3 rounded-lg font-[family-name:var(--font-dm-sans)] transition-opacity duration-500 ${
+              visible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            ✓ Message sent! We'll get back to you shortly.
+          </div>
+        )}
+
+        {status === "error" && (
+          <div
+            className={`flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-lg font-[family-name:var(--font-dm-sans)] transition-opacity duration-500 ${
+              visible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            ✗ Something went wrong. Please fill required fields and try again.
+          </div>
+        )}
+
         {/* Submit */}
         <button
           onClick={handleSubmit}
-          className="w-full bg-[#1a9e83] text-[#f0fffc] font-semibold py-3.5 rounded-lg
-                     hover:bg-[#157a66] transition-all duration-300
+          disabled={status === "sending"}
+          className={`w-full text-[#f0fffc] font-semibold py-3.5 rounded-lg
+                     transition-all duration-300
                      font-[family-name:var(--font-dm-sans)] text-sm tracking-wide
-                     flex items-center justify-center gap-2 group"
+                     flex items-center justify-center gap-2 group
+                     ${status === "sending"
+                       ? "bg-[#1a9e83]/60 cursor-not-allowed"
+                       : "bg-[#1a9e83] hover:bg-[#157a66]"
+                     }`}
         >
-          Send Message
-          <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+          {status === "sending" ? (
+            <>
+              <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+              </svg>
+              Sending...
+            </>
+          ) : (
+            <>
+              Send Message
+              <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+            </>
+          )}
         </button>
       </div>
     </div>

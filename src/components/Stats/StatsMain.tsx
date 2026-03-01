@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: "50+", label: "Projects Delivered",  delay: 0   },
-  { value: "30+", label: "Happy Clients",        delay: 100 },
-  { value: "5+",  label: "Years Experience",     delay: 200 },
+  { value: "10+", label: "Projects Delivered",  delay: 0   },
+  { value: "8+", label: "Happy Clients",        delay: 100 },
+  { value: "2+",  label: "Years Experience",     delay: 200 },
   { value: "24/7",label: "Support",              delay: 300 },
 ];
 

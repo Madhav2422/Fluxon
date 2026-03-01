@@ -2,14 +2,14 @@ import Link from "next/link";
 
 const quickLinks = [
   { label: "Home",     href: "/"        },
-  { label: "Services", href: "/#services"},
+  { label: "Services", href: "/services"},
   { label: "About",    href: "/about"   },
   { label: "Contact",  href: "/contact" },
 ];
 
 const services = [
   { label: "Web Development",  href: "/services" },
-  { label: "Mobile Apps",      href: "/services" },
+  { label: "AI Solutions",     href: "/services" },
   { label: "Cloud Solutions",  href: "/services" },
   { label: "IT Consulting",    href: "/services" },
 ];
@@ -27,7 +27,7 @@ const FooterMiddle: React.FC = () => {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="text-[#a8d5cc] text-sm font-[family-name:var(--font-dm-sans)] hover:text-white transition-colors duration-200"
+                className="text-[#a8d5cc] text-sm font-[family-name:var(--font-dm-sans)] hover:text-[#1a9e83] hover:underline underline-offset-4 decoration-[#1a9e83] transition-all duration-200"
               >
                 {link.label}
               </Link>
@@ -46,7 +46,7 @@ const FooterMiddle: React.FC = () => {
             <li key={s.label}>
               <Link
                 href={s.href}
-                className="text-[#a8d5cc] text-sm font-[family-name:var(--font-dm-sans)] hover:text-white transition-colors duration-200"
+                className="text-[#a8d5cc] text-sm font-[family-name:var(--font-dm-sans)] hover:text-[#1a9e83] hover:underline underline-offset-4 decoration-[#1a9e83] transition-all duration-200"
               >
                 {s.label}
               </Link>

@@ -18,10 +18,10 @@ const HeroSectionLeft: React.FC = () => {
 
       {/* Heading — exactly 2 lines */}
       <div style={{ animation: "fadeInDown 0.8s ease-out 0.15s backwards" }}>
-        <h1 className="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#0d2340] font-[family-name:var(--font-plus-jakarta)]">
+        <h1 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#0d2340] font-[family-name:var(--font-plus-jakarta)]">
           Transforming Ideas Into
         </h1>
-        <h1 className="text-4xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#1a9e83] font-[family-name:var(--font-plus-jakarta)] mt-1">
+        <h1 className="text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#1a9e83] font-[family-name:var(--font-plus-jakarta)] mt-1">
           Digital Reality
         </h1>
       </div>
@@ -31,11 +31,9 @@ const HeroSectionLeft: React.FC = () => {
         className="text-gray-500 text-base md:text-lg leading-relaxed font-[family-name:var(--font-dm-sans)] max-w-xl"
         style={{ animation: "fadeIn 0.8s ease-out 0.3s backwards" }}
       >
-        Fluxon Infotech delivers end-to-end IT services, from software
-        development to cloud infrastructure, tailored to your business needs.
-        We build scalable digital solutions that help businesses grow faster
-        and operate smarter. Partner with us to turn your vision into a
-        competitive advantage.
+        End-to-end IT services tailored to your business — from software
+        development to cloud infrastructure. We build scalable solutions
+        that drive growth and turn your vision into reality.
       </p>
 
       {/* CTA Buttons */}
