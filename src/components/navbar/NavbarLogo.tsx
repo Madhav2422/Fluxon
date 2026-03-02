@@ -4,7 +4,7 @@ const NavbarLogo: React.FC = () => {
   return (
     <div className="flex items-center">
       <Image
-        src="/Fluxon_Logo.jpeg"
+        src="/Fluxon_Logo.png"
         alt="Fluxon Infotech Logo"
         width={280}
         height={120}
