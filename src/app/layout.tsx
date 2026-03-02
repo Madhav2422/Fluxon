@@ -37,7 +37,9 @@ export const metadata: Metadata = {
     siteName: "Fluxon Infotech",
   },
   icons: {
-    icon: "/Fluxon_Logo.jpeg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
