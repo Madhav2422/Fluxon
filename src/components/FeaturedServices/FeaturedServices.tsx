@@ -6,6 +6,7 @@ import {
   FiUsers,
   FiSettings,
 } from "react-icons/fi";
+import Link from "next/link";
 
 const cards = [
   {
@@ -111,7 +112,7 @@ const FeaturedServices: React.FC = () => {
 
         {/* View All Services button */}
         <div className="text-center mt-12 mb-4">
-          <a
+          <Link
             href="/services"
             className="inline-flex items-center gap-3 bg-white border-2 border-[#1a9e83] text-[#1a9e83] font-semibold px-8 py-3.5 rounded-full font-[family-name:var(--font-dm-sans)] text-sm tracking-wide shadow-sm hover:bg-[#1a9e83] hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 group"
           >
@@ -119,7 +120,7 @@ const FeaturedServices: React.FC = () => {
             <span className="w-7 h-7 rounded-full bg-[#1a9e83]/10 group-hover:bg-white/20 flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
               →
             </span>
-          </a>
+          </Link>
         </div>
 
       </div>
