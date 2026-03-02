@@ -3,6 +3,7 @@ import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import NavbarMain from "@/components/navbar/NavbarMain";
 import FooterMain from "@/components/Footer/FooterMain";
+import SplashScreen from "@/components/SplashScreen";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -53,9 +54,11 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${plusJakarta.variable} antialiased bg-white text-[#3d3d3d]`}
       >
-        <NavbarMain />
-        <main className="pt-[90px]">{children}</main>
-        <FooterMain />
+        <SplashScreen>
+          <NavbarMain />
+          <main className="pt-[90px]">{children}</main>
+          <FooterMain />
+        </SplashScreen>
       </body>
     </html>
   );
