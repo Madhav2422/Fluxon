@@ -47,7 +47,7 @@ const FooterRight: React.FC = () => {
           aria-label="Instagram"
           className="w-10 h-10 rounded-full bg-[#1a9e83] flex items-center justify-center text-white hover:bg-white hover:text-[#1a9e83] hover:scale-110 transition-all duration-300 shadow-md"
         >
-          <FiInstagram size={17} />
+          <FiInstagram size={18} />
         </a>
       </div>
     </div>
