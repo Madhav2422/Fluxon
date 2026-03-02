@@ -1,4 +1,4 @@
-import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
+import { FiPhone, FiMail, FiLinkedin } from "react-icons/fi";
 
 const ContactLeft: React.FC = () => {
   return (
@@ -25,7 +25,12 @@ const ContactLeft: React.FC = () => {
           </div>
           <div>
             <p className="text-[#0d2340] font-semibold font-[family-name:var(--font-dm-sans)] mb-1">Phone</p>
-            <p className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm">+91 7984846312</p>
+            <a
+              href="tel:+917984846312"
+              className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm hover:text-[#1a9e83] transition-colors duration-200"
+            >
+              +91 79848 46312
+            </a>
           </div>
         </div>
 
@@ -36,20 +41,30 @@ const ContactLeft: React.FC = () => {
           </div>
           <div>
             <p className="text-[#0d2340] font-semibold font-[family-name:var(--font-dm-sans)] mb-1">Email</p>
-            <p className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm">fluxoninfotech@gmail.com</p>
+            <a
+              href="mailto:fluxoninfotech@gmail.com"
+              className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm hover:text-[#1a9e83] transition-colors duration-200"
+            >
+              fluxoninfotech@gmail.com
+            </a>
           </div>
         </div>
 
-        {/* Address */}
+        {/* LinkedIn */}
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-xl bg-[#f0fffc] border border-[#1a9e83]/20 flex items-center justify-center shrink-0">
-            <FiMapPin className="text-[#1a9e83]" size={20} />
+            <FiLinkedin className="text-[#1a9e83]" size={20} />
           </div>
           <div>
-            <p className="text-[#0d2340] font-semibold font-[family-name:var(--font-dm-sans)] mb-1">Office</p>
-            <p className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm leading-relaxed max-w-[240px]">
-              Fluxon Infotech, Uran, Maharashtra, India — 400702
-            </p>
+            <p className="text-[#0d2340] font-semibold font-[family-name:var(--font-dm-sans)] mb-1">LinkedIn</p>
+            <a
+              href="https://www.linkedin.com/in/fluxon-infotech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 font-[family-name:var(--font-dm-sans)] text-sm hover:text-[#1a9e83] transition-colors duration-200"
+            >
+              Connect with us on LinkedIn →
+            </a>
           </div>
         </div>
 
