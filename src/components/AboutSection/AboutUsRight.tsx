@@ -24,7 +24,7 @@ const AboutRight: React.FC = () => {
       {/* Floating badge */}
       <div className="absolute bottom-6 left-6 bg-white rounded-xl px-4 py-3 shadow-md flex items-center gap-3 border border-gray-100">
         <div className="w-9 h-9 rounded-full bg-[#1a9e83] flex items-center justify-center shrink-0">
-          <span className="text-white text-xs font-bold font-[family-name:var(--font-plus-jakarta)]">5+</span>
+          <span className="text-white text-xs font-bold font-[family-name:var(--font-plus-jakarta)]">2+</span>
         </div>
         <div>
           <p className="text-xs font-bold text-[#0d2340] font-[family-name:var(--font-plus-jakarta)]">Years of Excellence</p>
