@@ -16,6 +16,7 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
     { link: "Home",       section: "home",     href: "/",         isRoute: true },
     { link: "Services",   section: "services", href: "/services", isRoute: true },
     { link: "About Us",   section: "about",    href: "/about",    isRoute: true },
+    { link: "Portfolio",  section: "portfolio", href: "/portfolio", isRoute: true },
     { link: "Contact Us", section: "contact",  href: "/contact",  isRoute: true },
   ];
 
@@ -47,6 +48,7 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({ menuOpen, setMenuOpen }) => {
     if (link.section === "home")     return pathname === "/";
     if (link.section === "services") return pathname === "/services";
     if (link.section === "about")    return pathname === "/about";
+    if (link.section === "portfolio") return pathname === "/portfolio";
     if (link.section === "contact")  return pathname === "/contact";
     return pathname === "/" && activeSection === link.section;
   };

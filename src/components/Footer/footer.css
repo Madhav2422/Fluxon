@@ -1,0 +1,272 @@
+/* ════════════════════════════════════════════════════════════════
+   Footer — self-contained (ft- prefix), because it renders on every
+   page, including ones that don't load the landing styles (e.g. 404).
+   Looping animations only run while the footer is on screen
+   ([data-active], set by FooterShell).
+   ════════════════════════════════════════════════════════════════ */
+
+.ft-root {
+  --ft-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+  background-color: #050d16;
+  color: #fff;
+}
+.ft-display {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+.ft-body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+/* ── Background ────────────────────────────────────────────────── */
+.ft-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 100%, #000 15%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 100%, #000 15%, transparent 72%);
+}
+
+/* ── Reveal when the footer first scrolls into view ────────────── */
+.ft-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s ease,
+    transform 1s var(--ft-ease);
+  transition-delay: var(--d, 0ms);
+}
+.ft-root[data-revealed="true"] .ft-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Column headings ───────────────────────────────────────────── */
+.ft-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #5eead4;
+}
+.ft-heading::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #2dd4bf;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+}
+
+/* ── Links: an arrow slides in on hover ────────────────────────── */
+.ft-link {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 0.3s ease;
+}
+.ft-link-arrow {
+  display: inline-flex;
+  width: 0;
+  margin-right: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: #2dd4bf;
+  transform: translateX(-8px);
+  transition:
+    width 0.35s var(--ft-ease),
+    margin 0.35s var(--ft-ease),
+    opacity 0.3s ease,
+    transform 0.35s var(--ft-ease);
+}
+.ft-link:hover,
+.ft-link:focus-visible {
+  color: #fff;
+}
+.ft-link:hover .ft-link-arrow,
+.ft-link:focus-visible .ft-link-arrow {
+  width: 14px;
+  margin-right: 8px;
+  opacity: 1;
+  transform: none;
+}
+.ft-link[aria-current="page"] {
+  color: #5eead4;
+}
+
+/* Contact rows */
+.ft-icon {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ft-contact:hover .ft-icon {
+  background-color: #1a9e83;
+  color: #fff;
+  transform: rotate(-10deg) scale(1.06);
+}
+
+/* Social buttons: gradient fills up from the bottom */
+.ft-social {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease;
+}
+.ft-social::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #1a9e83, #2563eb);
+  transform: translateY(101%);
+  transition: transform 0.45s var(--ft-ease);
+}
+.ft-social:hover,
+.ft-social:focus-visible {
+  transform: translateY(-3px) rotate(-6deg);
+  border-color: transparent;
+}
+.ft-social:hover::before,
+.ft-social:focus-visible::before {
+  transform: none;
+}
+
+/* Logo mark (cropped from the logo image) */
+.ft-logo-mark {
+  background-image: url("/Fluxon_Logo.png");
+  background-repeat: no-repeat;
+  background-size: 337.6% 131.2%;
+  background-position: 9.53% 76.7%;
+}
+
+/* "Online" dot */
+.ft-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #22c55e;
+  opacity: 0;
+}
+.ft-root[data-active="true"] .ft-ping {
+  animation: ft-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ft-ping {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ── Divider that draws itself, with a light running along it ──── */
+.ft-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.6s var(--ft-ease) 0.3s;
+}
+.ft-root[data-revealed="true"] .ft-line {
+  transform: scaleX(1);
+}
+.ft-spark {
+  position: absolute;
+  inset: -1px 0;
+  background: linear-gradient(90deg, transparent 44%, rgba(94, 234, 212, 0.95) 50%, transparent 56%);
+  transform: translateX(-60%);
+  opacity: 0;
+}
+.ft-root[data-active="true"][data-revealed="true"] .ft-spark {
+  animation: ft-spark 5s ease-in-out 1.6s infinite;
+}
+@keyframes ft-spark {
+  0%   { transform: translateX(-60%); opacity: 0; }
+  12%  { opacity: 1; }
+  70%  { opacity: 1; }
+  80%, 100% { transform: translateX(60%); opacity: 0; }
+}
+
+/* ── Giant wordmark with a cursor spotlight ────────────────────── */
+.ft-word-move {
+  opacity: 0;
+  transform: translateY(45%);
+  transition:
+    transform 1.4s var(--ft-ease) 0.25s,
+    opacity 1s ease 0.25s;
+}
+.ft-root[data-revealed="true"] .ft-word-move {
+  opacity: 1;
+  transform: none;
+}
+.ft-word {
+  display: block;
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  font-size: clamp(4.4rem, 20.5vw, 18.75rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.055em;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.04em 0 0.06em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ft-word--base {
+  color: rgba(255, 255, 255, 0.03);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.13);
+}
+.ft-word--fill {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background-image: linear-gradient(100deg, #1a9e83 0%, #2dd4bf 30%, #60a5fa 65%, #2563eb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-mask-image: radial-gradient(circle var(--r, 260px) at var(--x, 50%) var(--y, 55%), #000 0%, rgba(0, 0, 0, 0.55) 38%, transparent 72%);
+  mask-image: radial-gradient(circle var(--r, 260px) at var(--x, 50%) var(--y, 55%), #000 0%, rgba(0, 0, 0, 0.55) 38%, transparent 72%);
+}
+
+/* ── Back to top: the arrow loops up on hover ──────────────────── */
+.ft-top-arrows {
+  display: grid;
+  overflow: hidden;
+}
+.ft-top-arrows > * {
+  grid-area: 1 / 1;
+  transition: transform 0.45s var(--ft-ease);
+}
+.ft-top-arrows > :last-child {
+  transform: translateY(160%);
+}
+.ft-top:hover .ft-top-arrows > :first-child,
+.ft-top:focus-visible .ft-top-arrows > :first-child {
+  transform: translateY(-160%);
+}
+.ft-top:hover .ft-top-arrows > :last-child,
+.ft-top:focus-visible .ft-top-arrows > :last-child {
+  transform: none;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ft-root *,
+  .ft-root *::before,
+  .ft-root *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .ft-reveal,
+  .ft-word-move {
+    opacity: 1;
+    transform: none;
+  }
+  .ft-line {
+    transform: none;
+  }
+}

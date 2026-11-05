@@ -1,0 +1,278 @@
+/* ════════════════════════════════════════════════════════════════
+   Portfolio page — effects. Builds on landing.css (same fx- system).
+   Motifs from the portfolio PDF: binary digits, blue folders, folder
+   tabs and "BUILD. SOLVE. SCALE." diamonds.
+   ════════════════════════════════════════════════════════════════ */
+
+.pf-warm {
+  background-color: #fbfaf5;
+}
+
+/* ── Hero: binary field + flickering bits ──────────────────────── */
+.pf-binary {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: rgba(255, 255, 255, 0.055);
+  line-height: 1.9;
+  letter-spacing: 0.9em;
+  white-space: pre;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 42%, #000 20%, transparent 74%);
+  mask-image: radial-gradient(ellipse at 50% 42%, #000 20%, transparent 74%);
+}
+.pf-bit {
+  position: absolute;
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #5eead4;
+  text-shadow: 0 0 12px rgba(94, 234, 212, 0.8);
+  opacity: 0;
+  animation: pf-flicker var(--dur, 4s) steps(1, end) infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes pf-flicker {
+  0%, 100% { opacity: 0; }
+  10%      { opacity: 0.9; }
+  35%      { opacity: 0; }
+}
+.pf-line {
+  transform: scaleX(0);
+  animation: pf-line 1.6s var(--fx-ease) 0.2s forwards;
+}
+@keyframes pf-line {
+  to { transform: scaleX(1); }
+}
+
+/* ── Hero: the open folder with project "papers" ───────────────── */
+.pf-folder {
+  position: relative;
+  perspective: 1400px;
+}
+.pf-folder-back {
+  position: absolute;
+  inset: 9% 0 0 0;
+  border-radius: 26px;
+  background: linear-gradient(170deg, #1f5fae, #12355f);
+  box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.85);
+}
+.pf-folder-tab {
+  position: absolute;
+  left: 0;
+  top: -11%;
+  width: 44%;
+  height: 16%;
+  border-radius: 22px 0 0 0;
+  background: #1f5fae;
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+}
+.pf-paper {
+  position: absolute;
+  left: 50%;
+  bottom: 22%;
+  width: 62%;
+  margin-left: -31%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7);
+  transform-origin: 50% 100%;
+  transform: translate(var(--tx, 0%), var(--ty, 0%)) rotate(var(--rot, 0deg));
+  transition: transform 0.9s var(--fx-ease);
+  animation: pf-paper-in 1.3s var(--fx-ease) backwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes pf-paper-in {
+  from { transform: translate(0, 45%) rotate(0deg); }
+}
+.pf-folder:hover .pf-paper {
+  transform: translate(var(--tx-h, 0%), var(--ty-h, 0%)) rotate(var(--rot-h, 0deg));
+}
+.pf-folder-front {
+  position: absolute;
+  inset: 38% 0 0 0;
+  border-radius: 26px;
+  background: linear-gradient(165deg, #46c3f5 0%, #2a8fe0 45%, #1e6fd0 100%);
+  transform-origin: 50% 100%;
+  transform: rotateX(-8deg);
+  transition: transform 0.9s var(--fx-ease);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 -12px 30px -12px rgba(0, 0, 0, 0.45);
+}
+.pf-folder:hover .pf-folder-front {
+  transform: rotateX(-22deg);
+}
+
+/* ── Folder tabs (What I do) ───────────────────────────────────── */
+.pf-tab {
+  position: relative;
+  border-radius: 18px 0 0 0;
+  clip-path: polygon(0 0, calc(100% - 38px) 0, 100% 100%, 0 100%);
+  transition:
+    background-color 0.4s ease,
+    translate 0.4s var(--fx-ease),
+    color 0.4s ease;
+}
+.pf-swap {
+  animation: pf-swap 0.6s var(--fx-ease) both;
+}
+@keyframes pf-swap {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Mini folder icons that open on hover (services) */
+.pf-mini-folder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.45;
+  perspective: 600px;
+}
+.pf-mini-folder .pf-mf-back {
+  position: absolute;
+  inset: 12% 0 0 0;
+  border-radius: 16px;
+  background: #5aa8e6;
+}
+.pf-mini-folder .pf-mf-back::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -13%;
+  width: 40%;
+  height: 18%;
+  border-radius: 12px 0 0 0;
+  background: #5aa8e6;
+  clip-path: polygon(0 0, 76% 0, 100% 100%, 0 100%);
+}
+.pf-mini-folder .pf-mf-doc {
+  position: absolute;
+  left: 13%;
+  right: 13%;
+  top: 20%;
+  bottom: 18%;
+  border-radius: 8px;
+  background: #fff;
+  transform: translateY(16%);
+  transition: transform 0.6s var(--fx-ease);
+}
+.pf-mini-folder .pf-mf-front {
+  position: absolute;
+  inset: 26% 0 0 0;
+  border-radius: 16px;
+  background: linear-gradient(170deg, #7dd3fc, #4fb3ef);
+  transform-origin: 50% 100%;
+  transition: transform 0.6s var(--fx-ease);
+}
+.group:hover .pf-mini-folder .pf-mf-doc {
+  transform: translateY(-10%);
+}
+.group:hover .pf-mini-folder .pf-mf-front {
+  transform: rotateX(-28deg);
+}
+
+/* ── Work: hover-to-scroll website previews ────────────────────── */
+.pf-shot-frame {
+  container-type: size;
+}
+.pf-shot {
+  transition: translate 1.2s var(--fx-ease);
+}
+@media (hover: hover) {
+  .pf-card:hover .pf-shot,
+  .pf-card:focus-visible .pf-shot {
+    translate: 0 calc(-100% + 100cqh);
+    transition: translate var(--scroll, 7s) linear;
+  }
+  .pf-card:hover .pf-hint {
+    opacity: 0;
+  }
+}
+@media (hover: none) {
+  /* Touch screens: the preview scrolls on its own. */
+  .pf-shot {
+    animation: pf-autoscroll 16s ease-in-out infinite alternate;
+  }
+  .pf-hint {
+    display: none;
+  }
+}
+@keyframes pf-autoscroll {
+  0%, 12%   { translate: 0 0; }
+  88%, 100% { translate: 0 calc(-100% + 100cqh); }
+}
+
+/* ── Approach: BUILD. SOLVE. SCALE. ─────────────────────────────── */
+.pf-word {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(30, 111, 208, 0.28);
+  background-image: linear-gradient(90deg, #1e6fd0, #1a9e83);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition:
+    background-size 0.9s var(--fx-ease),
+    -webkit-text-stroke-color 0.6s ease;
+}
+.pf-word[data-active="true"],
+.is-visible .pf-fill {
+  background-size: 100% 100%;
+  -webkit-text-stroke-color: transparent;
+}
+.pf-diamond {
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-left: 0.06em;
+  background: #1e6fd0;
+  opacity: 0.3;
+  transform: rotate(45deg) scale(0.6);
+  transition:
+    transform 0.6s var(--fx-ease),
+    opacity 0.6s ease,
+    background-color 0.6s ease;
+}
+[data-active="true"] > .pf-diamond {
+  opacity: 1;
+  background: #1a9e83;
+  transform: rotate(45deg) scale(1);
+}
+.pf-statement {
+  opacity: 0;
+  transform: translateY(24px);
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.7s var(--fx-ease);
+}
+.pf-statement[data-active="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* ── Impact rings ──────────────────────────────────────────────── */
+.pf-ring {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 2s var(--fx-ease) 0.2s;
+}
+.is-visible .pf-ring {
+  stroke-dashoffset: calc(100 - var(--v));
+}
+
+/* ── Contact: giant word that fills in ─────────────────────────── */
+.pf-fill {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(30, 111, 208, 0.35);
+  background-image: linear-gradient(90deg, #1e6fd0, #2a8fe0 45%, #1a9e83);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition:
+    background-size 1.4s var(--fx-ease) var(--d, 0ms),
+    -webkit-text-stroke-color 0.8s ease var(--d, 0ms);
+}

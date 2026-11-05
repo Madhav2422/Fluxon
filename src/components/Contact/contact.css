@@ -1,0 +1,223 @@
+/* ════════════════════════════════════════════════════════════════
+   Contact page — warm, paper-like and hand-made (ct- prefix).
+   Builds on landing.css. Animations use transform/opacity/stroke only.
+   ════════════════════════════════════════════════════════════════ */
+
+.ct-warm {
+  background-color: #fbf8f1;
+}
+.ct-hand {
+  font-family: var(--font-caveat), "Comic Sans MS", cursive;
+}
+
+/* Soft paper grain */
+.ct-grain {
+  background-image: radial-gradient(rgba(13, 35, 64, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 80%);
+}
+
+/* ── Hero: hand-drawn circle + flight path ─────────────────────── */
+.ct-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ct-draw 1.3s var(--fx-ease) forwards;
+  animation-delay: var(--d, 0.9s);
+}
+@keyframes ct-draw {
+  to { stroke-dashoffset: 0; }
+}
+.ct-flight {
+  stroke-dasharray: 2 10;
+  animation: ct-dash 26s linear infinite;
+}
+@keyframes ct-dash {
+  to { stroke-dashoffset: -480; }
+}
+
+.ct-card-icon {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.group:hover .ct-card-icon {
+  transform: rotate(-10deg) scale(1.08);
+}
+
+/* ── The letter ────────────────────────────────────────────────── */
+.ct-letter {
+  background-color: #fffdf8;
+  box-shadow:
+    0 1px 0 rgba(13, 35, 64, 0.04),
+    0 40px 80px -45px rgba(13, 35, 64, 0.45),
+    0 0 0 1px rgba(13, 35, 64, 0.07);
+}
+/* Washi tape on the corner */
+.ct-tape {
+  background: repeating-linear-gradient(135deg, rgba(45, 212, 191, 0.55) 0 8px, rgba(45, 212, 191, 0.4) 8px 16px);
+  transform: rotate(-38deg);
+}
+
+/* Inline "fill in the blank" fields */
+.ct-blank {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+.ct-blank input {
+  max-width: 100%;
+  min-width: 6ch;
+  padding: 0 2px 2px;
+  border: 0;
+  border-bottom: 2px dashed rgba(13, 35, 64, 0.22);
+  background: transparent;
+  color: #1a9e83;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.ct-blank input::placeholder {
+  color: rgba(13, 35, 64, 0.3);
+  font-weight: 500;
+}
+.ct-blank::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #1a9e83, #2563eb);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s var(--fx-ease);
+}
+.ct-blank:focus-within::after {
+  transform: scaleX(1);
+}
+.ct-blank:focus-within input {
+  border-bottom-color: transparent;
+}
+.ct-blank[data-invalid="true"] input {
+  border-bottom-color: #ef4444;
+  color: #dc2626;
+}
+
+/* Topic chips */
+.ct-chip {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ct-chip:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+.ct-chip[aria-pressed="true"] {
+  background-color: #0d2340;
+  border-color: #0d2340;
+  color: #fff;
+}
+.ct-chip-check {
+  display: inline-grid;
+  width: 0;
+  opacity: 0;
+  transform: scale(0.3);
+  transition:
+    width 0.3s var(--fx-ease),
+    margin 0.3s var(--fx-ease),
+    opacity 0.25s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ct-chip[aria-pressed="true"] .ct-chip-check {
+  width: 1.05em;
+  margin-right: 0.4em;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Lined notepaper for the message */
+.ct-lines {
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(13, 35, 64, 0.09) 31px 32px);
+  background-attachment: local;
+  line-height: 32px;
+}
+
+/* Send button paper plane */
+.ct-send-plane {
+  transition: transform 0.5s var(--fx-ease);
+}
+.ct-send:hover .ct-send-plane {
+  transform: translate(3px, -3px) rotate(-8deg);
+}
+.ct-send[data-sending="true"] .ct-send-plane {
+  animation: ct-hover-plane 0.9s ease-in-out infinite;
+}
+@keyframes ct-hover-plane {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(4px, -4px); }
+}
+
+/* Success: plane flies away, then the thank-you note appears */
+.ct-fly {
+  animation: ct-fly 1.6s cubic-bezier(0.55, 0, 0.2, 1) forwards;
+}
+@keyframes ct-fly {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  30%  { transform: translate(-30px, 20px) rotate(-12deg) scale(1.05); opacity: 1; }
+  100% { transform: translate(420px, -320px) rotate(18deg) scale(0.4); opacity: 0; }
+}
+.ct-pop {
+  animation: ct-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes ct-pop {
+  from { opacity: 0; transform: translateY(16px) scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+.ct-shake {
+  animation: ct-shake 0.45s ease;
+}
+@keyframes ct-shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  50%      { transform: translateX(5px); }
+  75%      { transform: translateX(-3px); }
+}
+
+/* ── What happens next ─────────────────────────────────────────── */
+.ct-step-line {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.6s var(--fx-ease) 0.3s;
+}
+.is-visible .ct-step-line {
+  transform: scaleY(1);
+}
+
+/* ── FAQ ───────────────────────────────────────────────────────── */
+.ct-faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--fx-ease);
+}
+.ct-faq-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.ct-faq-panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+.ct-faq-icon {
+  transition:
+    transform 0.45s var(--fx-ease),
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+[aria-expanded="true"] .ct-faq-icon {
+  transform: rotate(45deg);
+  background-color: #1a9e83;
+  color: #fff;
+}

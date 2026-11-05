@@ -1,0 +1,113 @@
+/* ════════════════════════════════════════════════════════════════
+   About page — extra effects. Builds on landing.css (same fx- system).
+   Everything animates transform/opacity, except the story words (colour)
+   and the values panels (flex-grow, only when a panel changes).
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Giant outlined type ───────────────────────────────────────── */
+.fx-outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
+}
+.fx-outline-num {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+}
+.fx-outline-num-dark {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(13, 35, 64, 0.1);
+}
+
+/* ── Story manifesto: words light up as you scroll ─────────────── */
+.fx-mword {
+  color: rgba(13, 35, 64, 0.13);
+  transition: color 0.45s ease;
+}
+.fx-mword[data-lit="true"] {
+  color: #0d2340;
+}
+.fx-mword[data-accent="true"][data-lit="true"] {
+  color: #1a9e83;
+}
+
+/* ── Journey: a light travelling along the timeline ────────────── */
+.fx-travel {
+  position: absolute;
+  inset: 0;
+  animation: fx-travel 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.fx-travel::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 9999px;
+  background: #2dd4bf;
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.18), 0 0 18px 4px rgba(45, 212, 191, 0.6);
+}
+@keyframes fx-travel {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+/* ── Values: expanding panels ──────────────────────────────────── */
+.fx-vtitle {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.fx-vbar {
+  transform-origin: left;
+  animation: fx-vbar var(--cycle, 4.5s) linear forwards;
+}
+@keyframes fx-vbar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.fx-vpanel[data-active="true"] {
+  border-color: rgba(45, 212, 191, 0.35);
+  background-color: rgba(45, 212, 191, 0.045);
+}
+@media (min-width: 1024px) {
+  .fx-vpanel {
+    flex: 1 1 0%;
+    min-width: 0;
+    transition:
+      flex-grow 0.8s var(--fx-ease),
+      border-color 0.5s ease,
+      background-color 0.5s ease;
+  }
+  .fx-vpanel[data-active="true"] {
+    flex-grow: 4;
+  }
+  .fx-vcollapsed {
+    transition: opacity 0.35s ease;
+  }
+  .fx-vpanel[data-active="true"] .fx-vcollapsed {
+    opacity: 0;
+  }
+  /* Fixed-width content: it never re-wraps while the panel animates open. */
+  .fx-vcontent {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.6s var(--fx-ease);
+    pointer-events: none;
+  }
+  .fx-vpanel[data-active="true"] .fx-vcontent {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.25s;
+    pointer-events: auto;
+  }
+}
+@media (max-width: 1023.98px) {
+  .fx-vcollapsed {
+    display: none;
+  }
+}

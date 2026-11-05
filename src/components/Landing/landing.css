@@ -1,0 +1,590 @@
+/* ════════════════════════════════════════════════════════════════
+   Fluxon Landing — motion & effects system
+   Every class is prefixed with `fx-` so nothing leaks into other pages.
+   ════════════════════════════════════════════════════════════════ */
+
+.fx-root {
+  --fx-ink: #050d16;
+  --fx-ink-2: #0a1a28;
+  --fx-teal: #1a9e83;
+  --fx-teal-bright: #2dd4bf;
+  --fx-cyan: #4cc9d4;
+  --fx-blue: #3b82f6;
+  --fx-navy: #0d2340;
+  --fx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-x: clip;
+}
+
+.fx-display {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+.fx-body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────────── */
+.fx-reveal {
+  opacity: 0;
+  transition:
+    opacity 0.9s var(--fx-ease),
+    transform 0.9s var(--fx-ease),
+    filter 0.9s var(--fx-ease);
+  transition-delay: var(--fx-delay, 0ms);
+}
+.fx-reveal[data-variant="up"]    { transform: translateY(40px); }
+.fx-reveal[data-variant="down"]  { transform: translateY(-30px); }
+.fx-reveal[data-variant="left"]  { transform: translateX(-48px); }
+.fx-reveal[data-variant="right"] { transform: translateX(48px); }
+.fx-reveal[data-variant="scale"] { transform: scale(0.92); }
+.fx-reveal[data-variant="blur"]  { transform: translateY(24px); filter: blur(14px); }
+.fx-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ── Hero entrance ─────────────────────────────────────────────── */
+.fx-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.fx-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: fx-rise 1.1s var(--fx-ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fx-rise {
+  to { transform: translateY(0); }
+}
+
+.fx-enter {
+  opacity: 0;
+  animation: fx-enter 1.1s var(--fx-ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fx-enter {
+  from { opacity: 0; transform: translateY(26px); filter: blur(8px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+/* ── Text treatments ───────────────────────────────────────────── */
+.fx-gradient-text {
+  background: linear-gradient(90deg, #2dd4bf, #4cc9d4 25%, #60a5fa 50%, #2dd4bf 75%, #4cc9d4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fx-shine 6s linear infinite;
+}
+.fx-gradient-text-dark {
+  background: linear-gradient(90deg, #1a9e83, #1e7fc4 35%, #1a9e83 70%, #1e7fc4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fx-shine 7s linear infinite;
+}
+@keyframes fx-shine {
+  to { background-position: 200% center; }
+}
+.fx-glyph {
+  color: #5eead4;
+  opacity: 0.85;
+}
+
+/* Underline that draws itself when the parent reveal becomes visible */
+.fx-underline {
+  position: relative;
+  white-space: nowrap;
+}
+.fx-underline svg {
+  position: absolute;
+  left: 0;
+  bottom: -0.18em;
+  width: 100%;
+  height: 0.35em;
+  overflow: visible;
+}
+.fx-underline path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s var(--fx-ease) 0.5s;
+}
+.is-visible .fx-underline path {
+  stroke-dashoffset: 0;
+}
+
+/* ── Backgrounds ───────────────────────────────────────────────── */
+.fx-grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 72%);
+}
+.fx-grid-bg-light {
+  background-image:
+    linear-gradient(rgba(13, 35, 64, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 35, 64, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 10%, transparent 70%);
+}
+/* Cursor-following glow inside the hero. It is moved with `transform` from JS,
+   so following the mouse never repaints the hero. */
+.fx-cursor-glow {
+  position: absolute;
+  left: -312px;
+  top: -312px;
+  width: 624px;
+  height: 624px;
+  background: radial-gradient(closest-side, rgba(45, 212, 191, 0.13), transparent);
+  transition: transform 0.3s var(--fx-ease);
+  will-change: transform;
+}
+
+/* Slow-drifting aurora blobs. A soft radial gradient (colour from --blob) instead of
+   a blur() filter: looks the same, but costs nothing to animate. */
+.fx-blob {
+  position: absolute;
+  animation: fx-drift var(--dur, 18s) ease-in-out infinite alternate;
+  will-change: transform;
+}
+.fx-blob::before {
+  content: "";
+  position: absolute;
+  inset: -27%;
+  background: radial-gradient(closest-side, var(--blob, rgba(26, 158, 131, 0.25)) 30%, transparent 100%);
+}
+@keyframes fx-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(var(--tx, 40px), var(--ty, -30px), 0) scale(1.18); }
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+.fx-btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.fx-btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translateX(-160%) skewX(-20deg);
+  animation: fx-sweep 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes fx-sweep {
+  0%        { transform: translateX(-160%) skewX(-20deg); }
+  55%, 100% { transform: translateX(280%) skewX(-20deg); }
+}
+.fx-magnetic {
+  transition: transform 0.25s var(--fx-ease);
+  will-change: transform;
+}
+
+/* ── Hero visual: 3D glass "command center" ────────────────────────
+   Everything here animates only transform/opacity (GPU-composited), and there
+   is deliberately no backdrop-filter: blurring over the moving particle canvas
+   would have to be recomputed every frame. */
+@keyframes fx-spin {
+  to { transform: rotate(360deg); }
+}
+.fx-logo-mark {
+  background-image: url("/Fluxon_Logo.png");
+  background-repeat: no-repeat;
+  background-size: 337.6% 131.2%;
+  background-position: 9.53% 76.7%;
+}
+
+@keyframes fx-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(var(--amp, -14px)); }
+}
+.fx-float {
+  animation: fx-float var(--dur, 6s) ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+
+.fx-scene {
+  perspective: 1600px;
+  perspective-origin: 50% 35%;
+}
+.fx-stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(-16deg) rotateX(9deg);
+  transition: transform 1s var(--fx-ease);
+}
+.fx-stage-float {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: fx-stage-float 10s ease-in-out infinite;
+}
+@keyframes fx-stage-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateZ(0deg); }
+  50%      { transform: translate3d(0, -12px, 0) rotateZ(0.5deg); }
+}
+.fx-slot {
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: translateZ(var(--z, 0px));
+  animation: fx-slot-in 1.2s var(--fx-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fx-slot-in {
+  from { opacity: 0; transform: translateZ(calc(var(--z, 0px) - 180px)) translateY(40px); }
+  to   { opacity: 1; transform: translateZ(var(--z, 0px)); }
+}
+
+.fx-glass-window {
+  background: linear-gradient(160deg, rgba(27, 56, 80, 0.97), rgba(9, 22, 34, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 50px 100px -30px rgba(0, 0, 0, 0.85),
+    0 0 90px -25px rgba(45, 212, 191, 0.45);
+}
+.fx-glass-card {
+  background: linear-gradient(160deg, rgba(38, 70, 96, 0.97), rgba(13, 30, 45, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 30px 60px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Light beam travelling around the editor border: a rotating conic layer behind a
+   static ring mask (compositor-only, no per-frame repaint). */
+.fx-beam {
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.fx-beam::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 160%;
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, transparent 0 68%, rgba(45, 212, 191, 0.95) 84%, rgba(96, 165, 250, 0.95) 93%, transparent 100%);
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: fx-beam 6s linear infinite;
+}
+@keyframes fx-beam {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Soft light sweeping across the glass every few seconds */
+.fx-glass-sweep {
+  position: absolute;
+  top: -40%;
+  left: 0;
+  width: 30%;
+  height: 180%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  transform: translateX(-160%) rotate(18deg);
+  animation: fx-glass-sweep 9s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes fx-glass-sweep {
+  0%, 60% { transform: translateX(-160%) rotate(18deg); }
+  100%    { transform: translateX(460%) rotate(18deg); }
+}
+
+/* "AI is thinking" dots */
+.fx-dot {
+  animation: fx-dot 1s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-dot {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50%      { transform: translateY(-3px); opacity: 1; }
+}
+
+/* Scroll cue */
+.fx-scroll-dot {
+  animation: fx-scroll-dot 2s var(--fx-ease) infinite;
+}
+@keyframes fx-scroll-dot {
+  0%   { transform: translateY(0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+
+/* ── Marquee ───────────────────────────────────────────────────── */
+.fx-marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.fx-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: fx-marquee var(--dur, 45s) linear infinite;
+}
+.fx-marquee-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+.fx-marquee:hover .fx-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes fx-marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ── Rotating conic border (stats) ─────────────────────────────── */
+@property --fx-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.fx-conic {
+  position: relative;
+  padding: 1px;
+  border-radius: 1.5rem;
+  background:
+    conic-gradient(from var(--fx-angle), transparent 0 62%, #1a9e83 78%, #3b82f6 90%, transparent 100%),
+    linear-gradient(rgba(13, 35, 64, 0.08), rgba(13, 35, 64, 0.08));
+  animation: fx-angle 6s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-angle {
+  to { --fx-angle: 360deg; }
+}
+
+/* ── Spotlight cards (services) ────────────────────────────────── */
+.fx-spot {
+  position: relative;
+  height: 100%;
+  padding: 1px;
+  border-radius: 1.75rem;
+  background: rgba(13, 35, 64, 0.09);
+  isolation: isolate;
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--fx-ease), box-shadow 0.5s var(--fx-ease);
+}
+.fx-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    380px circle at var(--x, -999px) var(--y, -999px),
+    rgba(26, 158, 131, 0.75),
+    rgba(59, 130, 246, 0.35) 30%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 0;
+}
+.fx-spot-grid:hover .fx-spot::before {
+  opacity: 1;
+}
+.fx-spot:hover {
+  box-shadow: 0 30px 60px -25px rgba(13, 35, 64, 0.35);
+}
+.fx-spot-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  border-radius: calc(1.75rem - 1px);
+  background: #ffffff;
+  overflow: hidden;
+}
+.fx-spot-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    520px circle at var(--x, -999px) var(--y, -999px),
+    rgba(26, 158, 131, 0.09),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.fx-spot:hover .fx-spot-inner::before {
+  opacity: 1;
+}
+
+/* Service mini-visuals */
+@keyframes fx-line {
+  0%        { clip-path: inset(0 100% 0 0); }
+  14%, 100% { clip-path: inset(0 0 0 0); }
+}
+.fx-code-line {
+  animation: fx-line 7s steps(18, end) infinite both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-block {
+  0%        { transform: scale(0.6); opacity: 0; }
+  12%, 100% { transform: scale(1); opacity: 1; }
+}
+.fx-block {
+  transform-origin: left center;
+  animation: fx-block 7s var(--fx-ease) infinite both;
+  animation-delay: var(--d, 0s);
+}
+.fx-caret {
+  animation: fx-blink 1s steps(1) infinite;
+}
+@keyframes fx-blink {
+  50% { opacity: 0; }
+}
+
+.fx-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fx-node 2.6s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-node {
+  0%, 100% { transform: scale(1); opacity: 0.75; }
+  50%      { transform: scale(1.4); opacity: 1; }
+}
+.fx-signal {
+  stroke-dasharray: 12 88;
+  animation: fx-signal 2.2s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-signal {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.fx-gear      { animation: fx-spin 9s linear infinite; }
+.fx-gear--rev { animation: fx-spin 6s linear infinite reverse; }
+
+.fx-led {
+  animation: fx-led 1.8s steps(1) infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-led {
+  0%, 60% { opacity: 1; }
+  61%     { opacity: 0.25; }
+  80%     { opacity: 1; }
+}
+.fx-rise-arrow {
+  animation: fx-rise-arrow 2.4s ease-in infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-rise-arrow {
+  0%   { transform: translateY(14px); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(-18px); opacity: 0; }
+}
+
+.fx-pipe-dot {
+  animation: fx-pipe 4s linear infinite;
+}
+@keyframes fx-pipe {
+  from { left: 0%; }
+  to   { left: 100%; }
+}
+.fx-pipe-node {
+  animation: fx-pipe-node 4s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-pipe-node {
+  0%       { background: #1a9e83; color: #fff; box-shadow: 0 0 0 6px rgba(26, 158, 131, 0.2); }
+  22%, 100% { background: #fff; color: #0d2340; box-shadow: 0 0 0 0 rgba(26, 158, 131, 0); }
+}
+
+.fx-chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: fx-draw 6s var(--fx-ease) infinite;
+}
+@keyframes fx-draw {
+  0%        { stroke-dashoffset: 1; }
+  40%, 100% { stroke-dashoffset: 0; }
+}
+.fx-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: fx-bar 6s var(--fx-ease) infinite both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fx-bar {
+  0%        { transform: scaleY(0); }
+  30%, 100% { transform: scaleY(1); }
+}
+
+/* ── Process timeline ──────────────────────────────────────────── */
+.fx-timeline-fill {
+  transform-origin: top;
+  transform: scaleY(0); /* updated from JS as you scroll */
+}
+.fx-step-node {
+  transition:
+    background-color 0.5s var(--fx-ease),
+    border-color 0.5s var(--fx-ease),
+    box-shadow 0.5s var(--fx-ease),
+    color 0.5s var(--fx-ease),
+    transform 0.5s var(--fx-ease);
+}
+.fx-step-node[data-active="true"] {
+  background: linear-gradient(135deg, #1a9e83, #2563eb);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 0 0 6px rgba(45, 212, 191, 0.14), 0 0 28px rgba(45, 212, 191, 0.55);
+  transform: scale(1.08);
+}
+.fx-term-line {
+  animation: fx-term-in 0.35s var(--fx-ease) both;
+}
+@keyframes fx-term-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Rotating circular text badge (CTA) ────────────────────────── */
+.fx-spin-slow {
+  animation: fx-spin 22s linear infinite;
+}
+
+/* ── Performance: freeze animations in sections that are off-screen ── */
+.fx-offscreen,
+.fx-offscreen *,
+.fx-offscreen *::before,
+.fx-offscreen *::after {
+  animation-play-state: paused !important;
+}
+
+/* ── Accessibility: respect reduced-motion preferences ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  .fx-root *,
+  .fx-root *::before,
+  .fx-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fx-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
