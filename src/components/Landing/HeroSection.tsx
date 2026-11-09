@@ -118,9 +118,9 @@ export default function HeroSection() {
             className="fx-enter fx-body mt-6 max-w-xl text-base leading-relaxed text-white/65 md:text-lg"
             style={delay(750)}
           >
-            End-to-end IT services tailored to your business — from software development to cloud
-            infrastructure. We build scalable solutions that drive growth and turn your vision into
-            reality.
+            We&apos;re an IT company in Morbi, Gujarat, delivering end-to-end IT services tailored to your
+            business — from software development to cloud infrastructure. We build scalable solutions
+            that drive growth.
           </p>
 
           {/* CTAs */}

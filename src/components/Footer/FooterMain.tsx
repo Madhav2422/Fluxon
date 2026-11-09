@@ -54,8 +54,8 @@ export default function FooterMain() {
               <span className="ft-display text-xl font-extrabold tracking-tight">Fluxon Infotech</span>
             </Link>
             <p className="ft-body mt-5 max-w-sm text-[15px] leading-relaxed text-white/60">
-              Empowering businesses with innovative IT solutions and cutting-edge technology services — from the
-              first idea to launch and beyond.
+              An IT company in Morbi, Gujarat, empowering businesses with innovative IT solutions and technology
+              services — from the first idea to launch and beyond.
             </p>
             <Link
               href="/about"
@@ -100,6 +100,9 @@ export default function FooterMain() {
         <div className="flex flex-col-reverse items-center justify-between gap-5 border-t border-white/10 py-7 sm:flex-row">
           <p className="ft-body text-center text-sm text-white/45 sm:text-left">
             © {year} Fluxon Infotech. All rights reserved.
+            <span className="block sm:inline">
+              <span className="hidden sm:inline"> · </span>Morbi, Gujarat, India
+            </span>
           </p>
           <BackToTop />
         </div>

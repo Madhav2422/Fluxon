@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "@/components/Landing/landing.css";
 import "@/components/Services/services.css";
 import CTASection from "@/components/Landing/CTASection";
@@ -8,12 +7,14 @@ import Included from "@/components/Services/Included";
 import LayerStack from "@/components/Services/LayerStack";
 import ServiceIndex from "@/components/Services/ServiceIndex";
 import ServicesHero from "@/components/Services/ServicesHero";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services | Fluxon Infotech",
+export const metadata = pageMetadata({
+  title: "Website Development & IT Services in Morbi",
   description:
-    "Web development, AI solutions, cloud, automation, DevOps and IT consulting — end-to-end IT services tailored to your business.",
-};
+    "Website development, AI solutions, cloud, automation, DevOps and IT consulting from Fluxon Infotech in Morbi, Gujarat. End-to-end IT services for your business.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

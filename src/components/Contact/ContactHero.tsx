@@ -149,12 +149,12 @@ export default function ContactHero() {
             <span>
               {time ? (
                 <>
-                  It&apos;s <span className="font-semibold tabular-nums text-[#0d2340]">{time}</span> in India
+                  It&apos;s <span className="font-semibold tabular-nums text-[#0d2340]">{time}</span> in Morbi, India
                 </>
               ) : (
-                "Based in India"
+                "Based in Morbi, Gujarat"
               )}{" "}
-              · we reply within 24 hours
+              · we reply within 24&nbsp;hours
             </span>
           </div>
         </div>

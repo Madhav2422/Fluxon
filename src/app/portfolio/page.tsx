@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "@/components/Landing/landing.css";
 import "@/components/Portfolio/portfolio.css";
 import "@/components/CaseStudy/casestudy.css";
@@ -12,12 +11,14 @@ import PortfolioHero from "@/components/Portfolio/PortfolioHero";
 import WhatWeDo from "@/components/Portfolio/WhatWeDo";
 import WorkGallery from "@/components/Portfolio/WorkGallery";
 import WorkWithUs from "@/components/Portfolio/WorkWithUs";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Portfolio | Fluxon Infotech",
+export const metadata = pageMetadata({
+  title: "Portfolio – Websites & Apps Built in Morbi",
   description:
-    "Selected work by Fluxon Infotech — live websites, platforms and AI-driven solutions for businesses across industries.",
-};
+    "See websites, web platforms and AI tools built by Fluxon Infotech, a website development company in Morbi, Gujarat, with live links to the websites.",
+  path: "/portfolio",
+});
 
 export default function PortfolioPage() {
   return (

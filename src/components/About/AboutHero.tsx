@@ -189,8 +189,8 @@ export default function AboutHero() {
           className="fx-enter fx-body mx-auto mt-7 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg"
           style={delay(800)}
         >
-          We&apos;re Fluxon Infotech — a team of passionate developers on a mission to empower businesses
-          through technology.
+          We&apos;re Fluxon Infotech — a team of passionate developers in Morbi, Gujarat, on a mission to
+          empower businesses through technology.
         </p>
 
         <div className="fx-enter mt-9 flex flex-wrap items-center justify-center gap-4" style={delay(950)}>

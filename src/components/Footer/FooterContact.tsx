@@ -78,10 +78,10 @@ export default function FooterContact() {
         <span>
           {time ? (
             <>
-              <span className="font-semibold tabular-nums text-white">{time}</span> in India
+              <span className="font-semibold tabular-nums text-white">{time}</span> in Morbi, India
             </>
           ) : (
-            "Based in India"
+            "Based in Morbi, Gujarat"
           )}{" "}
           · We reply within 24 hours
         </span>

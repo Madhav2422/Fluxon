@@ -307,8 +307,8 @@ export default function ServicesHero() {
           className="fx-enter fx-body mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg"
           style={delay(800)}
         >
-          Web, AI, cloud, automation, DevOps and consulting — end-to-end IT services tailored to your business, from the
-          first idea to launch and beyond.
+          Web, AI, cloud, automation, DevOps and consulting — end-to-end IT services from our team in Morbi, Gujarat,
+          tailored to your business from the first idea to launch and beyond.
         </p>
 
         <div className="fx-enter mt-12" style={delay(950)}>

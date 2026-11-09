@@ -10,6 +10,15 @@ import ServicesBento from "@/components/Landing/ServicesBento";
 import StatsSection from "@/components/Landing/StatsSection";
 import TechMarquee from "@/components/Landing/TechMarquee";
 import CaseStudyTeaser from "@/components/Portfolio/CaseStudyTeaser";
+import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Fluxon Infotech | IT Company in Morbi, Gujarat",
+  description: SITE.description,
+  path: "/",
+  absolute: true,
+});
 
 export default function Home() {
   return (
