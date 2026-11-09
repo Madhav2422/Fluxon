@@ -1,0 +1,98 @@
+/* ════════════════════════════════════════════════════════════════
+   Lead Finder demo (portfolio): an animated replica of the app
+   with sample data. lf- classes use the app's own palette.
+   ════════════════════════════════════════════════════════════════ */
+
+/* The replica uses Lead Finder's real colours (from the app's base.css). */
+.lf-app {
+  --bg: #edf1ef;
+  --surface: #ffffff;
+  --surface-2: #f5f8f7;
+  --ink: #15211f;
+  --ink-2: #4c5b58;
+  --ink-3: #7a8986;
+  --line: #d6dedb;
+  --line-soft: #e6ecea;
+  --glaze: #0e6f6c;
+  --glaze-strong: #0a5653;
+  --glaze-tint: #ddefec;
+  --good: #1c7a45;
+  --good-tint: #dff1e6;
+  --warn: #955a0e;
+  --warn-tint: #f6ecda;
+  --off: #6c7b78;
+  --off-tint: #e8edeb;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.35;
+  /* Updates inside the demo never cause layout or repaint work in the rest of the page. */
+  contain: layout paint style;
+}
+
+.lf-in {
+  animation: lf-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes lf-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.lf-pop {
+  animation: lf-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes lf-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: none; }
+}
+.lf-dialog {
+  animation: lf-dialog 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes lf-dialog {
+  from { opacity: 0; transform: translateY(12px) scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+.lf-btn {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    opacity 0.3s ease;
+}
+.lf-btn[data-pressed="true"] {
+  transform: scale(0.93);
+  box-shadow: 0 0 0 4px rgba(14, 111, 108, 0.2);
+}
+.lf-caret {
+  animation: lf-blink 1s steps(1) infinite;
+}
+@keyframes lf-blink {
+  50% { opacity: 0; }
+}
+
+/* Demo pointer */
+.lf-cursor {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.lf-ripple {
+  opacity: 0;
+}
+.lf-cursor[data-press="true"] .lf-ripple {
+  animation: lf-ripple 0.5s ease-out;
+}
+@keyframes lf-ripple {
+  from { transform: scale(0.3); opacity: 0.75; }
+  to   { transform: scale(2.4); opacity: 0; }
+}
+.lf-check {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.lf-check[data-on="true"] {
+  background-color: var(--glaze);
+  border-color: var(--glaze);
+  transform: scale(1.1);
+}

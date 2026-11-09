@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "@/components/Landing/landing.css";
 import "@/components/Portfolio/portfolio.css";
+import "@/components/CaseStudy/casestudy.css";
 import PauseOffscreen from "@/components/Landing/PauseOffscreen";
 import ScrollProgress from "@/components/Landing/ScrollProgress";
 import ApproachScroll from "@/components/Portfolio/ApproachScroll";
+import CaseStudyTeaser from "@/components/Portfolio/CaseStudyTeaser";
 import Impact from "@/components/Portfolio/Impact";
 import Platforms from "@/components/Portfolio/Platforms";
 import PortfolioHero from "@/components/Portfolio/PortfolioHero";
@@ -24,6 +26,7 @@ export default function PortfolioPage() {
       <PauseOffscreen />
       <PortfolioHero />
       <WorkGallery />
+      <CaseStudyTeaser />
       <WhatWeDo />
       <Platforms />
       <ApproachScroll />
