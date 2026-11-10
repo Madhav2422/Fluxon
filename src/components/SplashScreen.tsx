@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import "./SplashScreen.css";
 
-/** Hides the server-rendered copy for visitors without JavaScript too, and shows them the page. */
-const NO_JS_CSS = "<style>.loader-wrapper{display:none!important}.splash-page{display:block!important}</style>";
-
 /**
- * Shows the intro loader for 2.5 s when someone first opens the site, then mounts the site.
+ * Shows the intro loader when someone first opens the site, then reveals the page.
  *
- * The server also renders the full page into the HTML, hidden behind the loader, so Google and
- * link previews can read every page. In the browser that copy is kept as plain HTML and is not
- * hydrated (no extra work), and after the intro React mounts the live page in its place. Entrance
- * animations therefore still start right when the intro ends, exactly as before.
+ * The page itself is rendered and made ready *behind* the loader rather than after it, so the
+ * two happen at the same time instead of one after the other. While the loader is up, every
+ * entrance animation is held at its first frame (so nothing plays unseen) and the whole page is
+ * covered, so the visitor sees only the intro. When the timer fires, the cover is removed and the
+ * animations start — exactly the effect as before, but the page appears sooner.
+ *
+ * The page is also present in the server HTML, so search engines and link previews read it all.
  */
 export default function SplashScreen({
   children,
@@ -22,36 +22,24 @@ export default function SplashScreen({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-
+    // The intro lasts 1.1 s counted from when the page started loading, not from when this code
+    // began running. On a slow phone the code itself starts late, and counting from here used to
+    // stack that delay on top of the intro (the page appeared after 3.6 s instead of 1.1 s).
+    const timer = setTimeout(() => setLoading(false), Math.max(0, 1100 - performance.now()));
     return () => clearTimeout(timer);
   }, []);
 
-  if (!loading) return <>{children}</>;
-
   return (
     <>
-      <div className="loader-wrapper">
-        <div className="loader-line">
-          <span></span>
+      {loading && (
+        <div className="loader-wrapper" aria-hidden="true">
+          <div className="loader-line">
+            <span></span>
+          </div>
+          <p className="loader-text">Powering Your Digital Growth...</p>
         </div>
-        <p className="loader-text">
-          Powering Your Digital Growth...
-        </p>
-      </div>
-
-      {typeof window === "undefined" ? (
-        <div className="splash-page" style={{ display: "none" }}>
-          {children}
-        </div>
-      ) : (
-        // Same element as on the server, but React leaves its server-rendered contents untouched.
-        <div className="splash-page" style={{ display: "none" }} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: "" }} />
       )}
-
-      <noscript dangerouslySetInnerHTML={{ __html: NO_JS_CSS }} />
+      <div className={loading ? "splash-hold" : undefined}>{children}</div>
     </>
   );
 }

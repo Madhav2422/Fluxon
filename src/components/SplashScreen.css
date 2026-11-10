@@ -1,13 +1,27 @@
 .loader-wrapper {
-    height: 100vh;
-    width: 100vw;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
   }
-  
+
+  /* The page is built behind the loader. Hold it still and out of reach until the intro ends:
+     every entrance animation stays on its first frame, so none of them play unseen. */
+  .splash-hold {
+    height: 100vh;
+    overflow: hidden;
+  }
+  .splash-hold *,
+  .splash-hold *::before,
+  .splash-hold *::after {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+
   .loader-line {
     width: 220px;
     height: 4px;

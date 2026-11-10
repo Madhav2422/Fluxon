@@ -96,6 +96,22 @@
   opacity: 0.85;
 }
 
+/* Scrambling word: an invisible copy of the longest word reserves the space, and the live text
+   sits on top of it. The headline therefore keeps one width and never re-flows mid-animation. */
+.fx-scramble {
+  position: relative;
+  display: inline-block;
+}
+.fx-scramble-size {
+  visibility: hidden;
+}
+.fx-scramble-text {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  text-align: inherit;
+}
+
 /* Underline that draws itself when the parent reveal becomes visible */
 .fx-underline {
   position: relative;

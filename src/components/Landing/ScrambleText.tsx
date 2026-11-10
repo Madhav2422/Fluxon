@@ -95,13 +95,25 @@ export default function ScrambleText({
     };
   }, [words, interval, startDelay]);
 
+  // The longest word holds the width open. Without it, the headline resized on every frame of
+  // the glitch (dozens of tiny layout shifts, which Google counts against the page), and the
+  // browser had to re-lay-out the heading each time.
+  const longest = words.reduce((a, b) => (b.length > a.length ? b : a), words[0]);
+
   return (
-    <span className={className}>
-      {chars.map((c, i) => (
-        <span key={i} className={c.scrambled ? "fx-glyph" : undefined}>
-          {c.ch}
-        </span>
-      ))}
+    <span className="fx-scramble">
+      <span aria-hidden="true" className="fx-scramble-size">
+        {longest}
+      </span>
+      {/* The caller's styling (the gradient fill) goes on the text itself: a gradient painted on
+          the wrapper would not reach this layer, and the word would come out invisible. */}
+      <span className={`${className} fx-scramble-text`}>
+        {chars.map((c, i) => (
+          <span key={i} className={c.scrambled ? "fx-glyph" : undefined}>
+            {c.ch}
+          </span>
+        ))}
+      </span>
     </span>
   );
 }

@@ -77,7 +77,7 @@ export default function HeroSection() {
           {/* Badge */}
           <div
             className="fx-enter inline-flex items-center gap-2.5 rounded-full border border-[#2dd4bf]/25 bg-white/[0.04] px-4 py-2 backdrop-blur-md"
-            style={delay(100)}
+            style={delay(60)}
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2dd4bf] opacity-75" />
@@ -93,7 +93,7 @@ export default function HeroSection() {
               {HEADLINE.map((word, i) => (
                 <Fragment key={word}>
                   <span className="fx-word mr-[0.25em]">
-                    <span style={delay(250 + i * 110)}>{word}</span>
+                    <span style={delay(120 + i * 70)}>{word}</span>
                   </span>
                   {/* Below desktop, break after "Transforming" so "Into" never sits alone */}
                   {i === 0 && <br className="lg:hidden" />}
@@ -101,10 +101,10 @@ export default function HeroSection() {
               ))}
               <span className="block">
                 <span className="fx-word">
-                  <span style={delay(580)}>
+                  <span style={delay(330)}>
                     <ScrambleText
                       words={ROTATING_WORDS}
-                      startDelay={1500}
+                      startDelay={1000}
                       className="fx-gradient-text whitespace-nowrap"
                     />
                   </span>
@@ -113,10 +113,10 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          {/* Description */}
+          {/* Description — the biggest text on screen, so Google times the page by it. */}
           <p
             className="fx-enter fx-body mt-6 max-w-xl text-base leading-relaxed text-white/65 md:text-lg"
-            style={delay(750)}
+            style={delay(170)}
           >
             We&apos;re an IT company in Morbi, Gujarat, delivering end-to-end IT services tailored to your
             business — from software development to cloud infrastructure. We build scalable solutions
@@ -126,7 +126,7 @@ export default function HeroSection() {
           {/* CTAs */}
           <div
             className="fx-enter mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
-            style={delay(900)}
+            style={delay(450)}
           >
             <Magnetic>
               <Link
@@ -153,7 +153,7 @@ export default function HeroSection() {
         </div>
 
         {/* 3D glass "command center" visual */}
-        <div className="fx-enter" style={delay(450)}>
+        <div className="fx-enter" style={delay(260)}>
           <HeroVisual />
         </div>
       </div>
@@ -161,7 +161,7 @@ export default function HeroSection() {
       {/* Interaction hint (desktop) */}
       <p
         className="fx-enter pointer-events-none absolute bottom-8 right-10 z-10 hidden font-mono text-[11px] tracking-wide text-white/35 lg:block"
-        style={delay(1600)}
+        style={delay(900)}
       >
         ✦ move your cursor · click to send a pulse
       </p>
@@ -169,7 +169,7 @@ export default function HeroSection() {
       {/* Scroll cue */}
       <div
         className="fx-enter pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-2 text-white/40"
-        style={delay(1400)}
+        style={delay(800)}
       >
         <span className="flex h-9 w-6 justify-center rounded-full border border-white/25 pt-2">
           <span className="fx-scroll-dot h-1.5 w-1 rounded-full bg-[#2dd4bf]" />
